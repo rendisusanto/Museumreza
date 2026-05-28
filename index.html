@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zahrooooow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #fdf6ee;
+      --warm-white: #fff9f3;
+      --sand: #e8d9c5;
+      --terracotta: #c27a5a;
+      --blush: #e8b4a0;
+      --mocha: #7a5c4a;
+      --soft-brown: #a07860;
+      --text-dark: #3a2e28;
+      --text-mid: #6b5548;
+      --text-light: #a08070;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--text-dark);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 2rem;
+      background: linear-gradient(160deg, #fdf6ee 0%, #f5e8d8 50%, #ecdcc8 100%);
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 30%, rgba(226,180,154,0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 80% 70%, rgba(194,122,90,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px;
+    }
+
+    .floaty {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.18;
+      animation: floatBubble 8s ease-in-out infinite;
+    }
+    .floaty.a { width: 320px; height: 320px; background: radial-gradient(circle, #e8b4a0, transparent); top: -80px; right: -60px; animation-delay: 0s; }
+    .floaty.b { width: 200px; height: 200px; background: radial-gradient(circle, #c27a5a, transparent); bottom: 60px; left: -60px; animation-delay: 3s; }
+    .floaty.c { width: 140px; height: 140px; background: radial-gradient(circle, #e8d9c5, transparent); top: 40%; left: 10%; animation-delay: 5s; }
+
+    @keyframes floatBubble {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-24px) scale(1.04); }
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 640px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--soft-brown);
+      background: rgba(232,217,197,0.6);
+      border: 1px solid rgba(194,122,90,0.2);
+      padding: 0.4rem 1.1rem;
+      border-radius: 100px;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.3s;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 7vw, 4.2rem);
+      font-weight: 400;
+      line-height: 1.18;
+      color: var(--text-dark);
+      margin-bottom: 1.6rem;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.6s;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--terracotta);
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-mid);
+      font-weight: 300;
+      line-height: 1.75;
+      max-width: 420px;
+      margin: 0 auto 3rem;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.9s;
+    }
+
+    .scroll-hint {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-light);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 1.4s;
+    }
+
+    .scroll-arrow {
+      width: 28px;
+      height: 28px;
+      border-right: 1.5px solid var(--blush);
+      border-bottom: 1.5px solid var(--blush);
+      transform: rotate(45deg);
+      animation: bounce 1.6s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: rotate(45deg) translateY(0); }
+      50% { transform: rotate(45deg) translateY(6px); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── SECTION DIVIDER ─── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      max-width: 200px;
+      margin: 0 auto 3rem;
+    }
+    .divider-line { flex: 1; height: 1px; background: var(--sand); }
+    .divider-dot  { width: 6px; height: 6px; border-radius: 50%; background: var(--blush); }
+
+    /* ─── VIDEO SECTION ─── */
+    #videos {
+      padding: 100px 2rem 80px;
+      background: var(--warm-white);
+      position: relative;
+    }
+
+    .section-label {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-label h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 400;
+      color: var(--text-dark);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-label p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      font-weight: 300;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    .video-card {
+      background: var(--cream);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(232,217,197,0.8);
+      box-shadow: 0 4px 24px rgba(122,92,74,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .video-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(122,92,74,0.14);
+    }
+
+    .video-card .card-label {
+      padding: 1rem 1.2rem 0.6rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--soft-brown);
+      font-weight: 500;
+    }
+
+    .video-wrapper {
+      position: relative;
+      background: #2a1f1a;
+    }
+
+    .video-wrapper.landscape { aspect-ratio: 16/9; }
+    .video-wrapper.portrait  { aspect-ratio: 9/16; }
+
+    .video-wrapper video,
+    .video-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .video-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.82rem;
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    .play-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .play-icon svg { fill: rgba(255,255,255,0.5); }
+
+    .video-card .card-footer {
+      padding: 0.8rem 1.2rem 1rem;
+      font-size: 0.8rem;
+      color: var(--text-light);
+      font-weight: 300;
+    }
+
+    /* Upload hint */
+    .upload-hint {
+      text-align: center;
+      margin-top: 2.5rem;
+      padding: 1.2rem 2rem;
+      background: rgba(232,180,160,0.15);
+      border: 1px dashed rgba(194,122,90,0.3);
+      border-radius: 12px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+      color: var(--text-mid);
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+
+    .upload-hint code {
+      background: rgba(194,122,90,0.12);
+      padding: 0.1em 0.4em;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      color: var(--terracotta);
+    }
+
+    /* ─── PHOTO CAROUSEL ─── */
+    #photos {
+      padding: 100px 0 120px;
+      background: linear-gradient(180deg, var(--warm-white) 0%, var(--cream) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #photos .section-label {
+      padding: 0 2rem;
+    }
+
+    .carousel-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .carousel-row {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    /* Fade edges per row */
+    .carousel-row::before,
+    .carousel-row::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 100px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .carousel-row::before {
+      left: 0;
+      background: linear-gradient(to right, var(--cream), transparent);
+    }
+    .carousel-row::after {
+      right: 0;
+      background: linear-gradient(to left, var(--cream), transparent);
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 1.2rem;
+      width: max-content;
+    }
+
+    /* Row 1: scroll right (→) */
+    .carousel-track.right {
+      animation: scrollRight 28s linear infinite;
+    }
+    .carousel-track.right:hover {
+      animation-play-state: paused;
+    }
+
+    /* Row 2: scroll left (←) */
+    .carousel-track.left {
+      animation: scrollLeft 28s linear infinite;
+    }
+    .carousel-track.left:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes scrollRight {
+      0%   { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+
+    @keyframes scrollLeft {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .photo-slot {
+      aspect-ratio: 16/9;
+      width: 380px;
+      border-radius: 14px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #e8d3c0;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .photo-slot:hover {
+      transform: scale(1.025);
+      box-shadow: 0 10px 32px rgba(122,92,74,0.18);
+      z-index: 1;
+    }
+
+    .photo-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-slot .photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      color: var(--text-light);
+      font-size: 0.8rem;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .photo-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(194,122,90,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Lightbox */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(30,20,14,0.88);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      backdrop-filter: blur(6px);
+    }
+    #lightbox.open { display: flex; }
+
+    #lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 12px;
+      object-fit: contain;
+    }
+
+    #lightbox-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.4rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    #lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 3.5rem 2rem;
+      text-align: center;
+      background: var(--cream);
+      border-top: 1px solid var(--sand);
+    }
+
+    footer p {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--text-light);
+      font-size: 1rem;
+    }
+
+    footer span {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-style: normal;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blush);
+      margin-top: 0.5rem;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .photo-slot { width: 280px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="floaty a"></div>
+  <div class="floaty b"></div>
+  <div class="floaty c"></div>
+
+  <div class="hero-inner">
+    <div class="hero-tag">Seutas kata</div>
+    <h1 class="hero-title">
+      Halo Zahh, aku <em>Rendi</em><br>temen kamu dari dulu
+    </h1>
+    <p class="hero-subtitle">
+      dan sampai kapan pun — karena bagiku sangat menyenangkan bisa berbagi cerita dengan orang sepertimu.
+    </p>
+    <div class="scroll-hint">
+      <span>scroll ke bawah</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ VIDEOS ═══ -->
+<section id="videos">
+  <div class="section-label">
+    <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+    <h2>Momen yang terekam</h2>
+    <p>beberapa hal yang ingin aku bagikan</p>
+  </div>
+
+  <div class="video-grid">
+
+    <!-- Video 16:9 -->
+    <div class="video-card">
+      <div class="card-label">▶ Landscape · 16:9</div>
+      <div class="video-wrapper landscape" id="vid-landscape">
+        <iframe src="https://www.youtube.com/embed/bbtn6ADUeh0" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="card-footer">Percayalah gua ngedit sambil senyum senyum</div>
+    </div>
+
+    <!-- Video 9:16 -->
+    <div class="video-card">
+      <div class="card-label">▶ Portrait · 9:16</div>
+      <div class="video-wrapper portrait" id="vid-portrait">
+        <video controls playsinline>
+          <source src="1.mp4" type="video/mp4">
+          Browser kamu tidak support video tag
+        </video>
+      </div>
+      <div class="card-footer">hufftt </div>
+    </div>
+
+  </div>
+
+
+</section>
+
+<!-- ═══ PHOTOS ═══ -->
+<section id="photos">
+  <div class="section-label">
+    <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+    <h2>Coba liat deh Zahh</h2>
+    <p>dari ini semua mana aja yang kamu inget wkkwkw<br>kalo kamu mau aku bisa ceritain kapan aja kejadian pas foto itu koo gua mah inget yeah</p>
+  </div>
+
+  <!--
+    CARA PAKAI FOTO:
+    Ganti <div class="photo-slot"><div class="photo-placeholder">...</div></div>
+    dengan: <div class="photo-slot"><img src="foto1.jpg" alt="..."></div>
+
+    Baris atas (id="row-top") geser ke KANAN →
+    Baris bawah (id="row-bottom") geser ke KIRI ←
+    Duplikat otomatis lewat JS di bawah.
+  -->
+
+  <div class="carousel-rows">
+
+    <!-- Baris atas → ke kanan -->
+    <div class="carousel-row">
+      <div class="carousel-track right" id="row-top">
+
+        <div class="photo-slot"><img src="1 (1).jpeg" alt="Foto 1"></div>
+
+        <div class="photo-slot"><img src="1 (2).jpeg" alt="Foto 2"></div>
+
+        <div class="photo-slot"><img src="1 (3).jpeg" alt="Foto 3"></div>
+
+        <div class="photo-slot"><img src="1 (4).jpeg" alt="Foto 4"></div>
+
+        <div class="photo-slot"><img src="1 (5).jpeg" alt="Foto 5"></div>
+
+        <div class="photo-slot"><img src="1 (15).jpeg" alt="Foto 6"></div>
+
+      </div>
+    </div>
+
+    <!-- Baris bawah ← ke kiri -->
+    <div class="carousel-row">
+      <div class="carousel-track left" id="row-bottom">
+
+        <div class="photo-slot"><img src="1 (7).jpeg" alt="Foto 7"></div>
+
+        <div class="photo-slot"><img src="1 (8).jpeg" alt="Foto 8"></div>
+
+        <div class="photo-slot"><img src="1 (9).jpeg" alt="Foto 9"></div>
+
+        <div class="photo-slot"><img src="1 (10).jpeg" alt="Foto 10"></div>
+
+        <div class="photo-slot"><img src="1 (11).jpeg" alt="Foto 11"></div>
+
+        <div class="photo-slot"><img src="1 (12).jpeg" alt="Foto 12"></div>
+
+        <div class="photo-slot"><img src="1 (13).jpeg" alt="Foto 13"></div>
+
+        <div class="photo-slot"><img src="1 (14).jpeg" alt="Foto 14"></div>
+        
+        <div class="photo-slot"><img src="1 (6).jpeg" alt="Foto 14"></div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <p>"At the time cerita kita adalah cerita manis<br>dan aku tidak mau menjadikan itu sebagai sesuatu yang sedih.<br>jadi makasih udah mau bertemu sama aku."</p>
+  <span>salam hangat, dari Rendi 🤍</span>
+</footer>
+
+<!-- ═══ LIGHTBOX ═══ -->
+<div id="lightbox">
+  <button id="lightbox-close">✕</button>
+  <img id="lightbox-img" src="" alt="foto" />
+</div>
+
+<script>
+  // ── Duplicate carousel items for seamless loop ──
+  document.querySelectorAll('.carousel-track').forEach(track => {
+    const origItems = Array.from(track.children);
+    origItems.forEach(item => track.appendChild(item.cloneNode(true)));
+  });
+
+  // ── Lightbox on click ──
+  const lightbox   = document.getElementById('lightbox');
+  const lbImg      = document.getElementById('lightbox-img');
+  const lbClose    = document.getElementById('lightbox-close');
+
+  document.querySelectorAll('.photo-slot').forEach(slot => {
+    slot.addEventListener('click', () => {
+      const img = slot.querySelector('img');
+      if (!img) return; // placeholder — no lightbox
+      lbImg.src = img.src;
+      lightbox.classList.add('open');
+    });
+  });
+
+  lbClose.addEventListener('click', () => lightbox.classList.remove('open'));
+  lightbox.addEventListener('click', e => {
+    if (e.target === lightbox) lightbox.classList.remove('open');
+  });
+</script>
+
+</body>
+</html>
